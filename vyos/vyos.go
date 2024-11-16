@@ -39,6 +39,7 @@ type Client struct {
 	// Services used for talking to different parts of the VyOS API.
 	Show *ShowService
 	Conf *ConfigureService
+	Gen *GenerateService
 
 	Power      *PowerService
 	Image      *ImageService
@@ -158,6 +159,7 @@ func (c *Client) init() {
 	}
 
 	c.common.client = c
+	c.Gen = (*GenerateService)(&c.common)
 	c.Show = (*ShowService)(&c.common)
 	c.Conf = (*ConfigureService)(&c.common)
 	c.ConfigFile = (*ConfigService)(&c.common)
