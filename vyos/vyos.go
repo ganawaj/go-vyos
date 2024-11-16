@@ -14,14 +14,14 @@ import (
 const (
 
 	// defaultUserAgent is the default user agent used by the VyOS API client.
-	defaultUserAgent        = "go-vyos"
+	defaultUserAgent = "go-vyos"
 
 	// OPMode constants
-	OPModeShow       OPMode = "show"      // OPModeShow is the show operational mode.
-	OPModeSet        OPMode = "set"       // OPModeSet is the set operational mode.
-	OPModeComment    OPMode = "comment"   // OPModeComment is the comment operational mode.
-	OPModeGenerate   OPMode = "generate"  // OPModeGenerate is the generate operational mode.
-	OPModeConfigure  OPMode = "configure" // OPModeConfigure is the configure operational mode.
+	OPModeShow      OPMode = "show"      // OPModeShow is the show operational mode.
+	OPModeSet       OPMode = "set"       // OPModeSet is the set operational mode.
+	OPModeComment   OPMode = "comment"   // OPModeComment is the comment operational mode.
+	OPModeGenerate  OPMode = "generate"  // OPModeGenerate is the generate operational mode.
+	OPModeConfigure OPMode = "configure" // OPModeConfigure is the configure operational mode.
 )
 
 // Vyos represents a VyOS API client.
@@ -37,15 +37,12 @@ type Client struct {
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// Services used for talking to different parts of the VyOS API.
-	Show    *ShowService
-	// Set     *SetService
-	// Comment *CommentService
+	Show *ShowService
+	Conf *ConfigureService
 
-
-	Power *PowerService
-	Image *ImageService
-	Config *ConfigService
-	
+	Power      *PowerService
+	Image      *ImageService
+	ConfigFile *ConfigService
 }
 
 // Service represents a VyOS API service.
@@ -162,12 +159,10 @@ func (c *Client) init() {
 
 	c.common.client = c
 	c.Show = (*ShowService)(&c.common)
-
-
+	c.Conf = (*ConfigureService)(&c.common)
+	c.ConfigFile = (*ConfigService)(&c.common)
 	c.Power = (*PowerService)(&c.common)
 	c.Image = (*ImageService)(&c.common)
-
-
 
 }
 
