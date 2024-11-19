@@ -1,6 +1,6 @@
 # go-vyos
 
-go-vyos is a Go client library for accessing the [Vyos API](https://docs.vyos.io/en/latest/automation/vyos-api.html#vyosapi)
+go-vyos is a Go client library for accessing the [Vyos REST API](https://docs.vyos.io/en/latest/automation/vyos-api.html#vyosapi)
 
 ## Usage
 
@@ -148,7 +148,7 @@ c := vyos.NewClient(nil).WithToken("AUTH_KEY").WithURL("https://192.168.0.1").In
 
     fmt.Println(out.Success)
     fmt.Printf("Data: %v\n", out.Data)
-    
+
 ```
 
 ### Configure, then Load File
